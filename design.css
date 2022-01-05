@@ -5,19 +5,37 @@
 }
 
 .expense-type {
-    padding: 0.7vmin;
-    margin: 0.5vmin;
+    padding: 1.5vmin;
+    margin: 0.8vmin;
     box-shadow: inset -1px -1px 2px 1px #5681ca;
     cursor: pointer;
+    font-variant: all-petite-caps;
+    border: 2px;
+    border-radius: 5px;
+    width: 75vw;
 }
 
-#expenseTypes {
+.expense-item {
+    background: #75634a;
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 34vmin;
+    box-shadow: -6px 3px 6px 0 #26666b;
+}
+
+#expenseTypesBox {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, .6)), url('https://media.istockphoto.com/photos/programming-code-abstract-technology-background-of-software-developer-picture-id1294521676?b=1&k=20&m=1294521676&s=170667a&w=0&h=7pqhrZcqqbQq43Q0_TD0Y_YjInAyvA9xiht9bto030U=') no-repeat;
     background-size: contain;
     height: 19.5vh;
+    overflow: scroll;
 }
-
-section {
+#modal {
+    display: none;
+}
+#expenseData {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, .6)), url('https://i.pinimg.com/474x/c7/0a/07/c70a072de190b87c0d3396bbecbdeef5.jpg') no-repeat;
     height: 60.5vh;
+}
+section {
     background: #444444;
 }

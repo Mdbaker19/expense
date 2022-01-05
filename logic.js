@@ -2,6 +2,20 @@
     const firebaseDBCategory = 'https://react-sho-default-rtdb.firebaseio.com/category.json';
     const firebaseDBExpense = 'https://react-sho-default-rtdb.firebaseio.com/expense.json';
     let catChoice = document.getElementById("expenseType");
+    document.getElementById("newCat").addEventListener("click", () => {
+        document.getElementById("modal").style.display = "block";
+    });
+    $("#close").on("click", () => {
+        document.getElementById("modal").style.display = "none";
+    })
+    $("#sendCatName").on("click", async () => {
+        await fetch(firebaseDBCategory, {
+            method: "POST",
+            body: JSON.stringify({name: $("#catName").val()})
+        });
+        await getExpenseData();
+        document.getElementById("modal").style.display = "none";
+    });
 
     function loadPage(expenseData, categoryData) {
         $("#expenseData").html(render(expenseData, singleExpense));
@@ -16,16 +30,17 @@
         });
     }
 
-    document.getElementById("submitExp").addEventListener("click", () => {
+    document.getElementById("submitExp").addEventListener("click", async () => {
         let expense = {
             day: new Date().toDateString(),
             amount: $("#amount").val(),
             type: catChoice
         };
-        fetch(firebaseDBExpense, {
+        await fetch(firebaseDBExpense, {
             method: "POST",
             body: JSON.stringify(expense)
         });
+        await getExpenseData();
     });
 
     function render(data, fn) {
