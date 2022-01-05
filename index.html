@@ -11,6 +11,10 @@
 <body>
 <div id="expenseTypesBox">
     <button id="newCat">+</button>
+    <button id="filter">Filter</button>
+    <div id="filter-modal">
+
+    </div>
     <div id="modal">
         <button id="close">X</button>
         <input id="catName">
@@ -20,17 +24,19 @@
 
     </div>
 </div>
+<main>
+    <section id="newExpense">
+        <h4 id="expenseType"></h4>
+        <input class="formArea" placeholder="Amount" id="amount"/>
+        <button id="submitExp">Save</button>
+    </section>
 
-<section id="newExpense">
-    <h4 id="expenseType"></h4>
-    <input class="formArea" placeholder="Amount" id="amount"/>
-    <button id="submitExp">Save</button>
-</section>
+    <section id="expenseData">
 
-<section id="expenseData">
+    </section>
+</main>
 
-</section>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="logic.js"></script>
 </body>

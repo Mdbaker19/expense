@@ -2,6 +2,13 @@
     const firebaseDBCategory = 'https://react-sho-default-rtdb.firebaseio.com/category.json';
     const firebaseDBExpense = 'https://react-sho-default-rtdb.firebaseio.com/expense.json';
     let catChoice = document.getElementById("expenseType");
+    let EXPENSES = [];
+    let CATEGORIES = [];
+    $("#filter").on("click", () => {
+        document.getElementById("filter-modal").style.display = "block";
+        // add chart here and total price by date / category
+    });
+
     document.getElementById("newCat").addEventListener("click", () => {
         document.getElementById("modal").style.display = "block";
     });
@@ -26,6 +33,7 @@
         Array.from(document.getElementsByClassName("expense-type")).forEach(type => {
            type.addEventListener("click", (e) => {
                catChoice = e.target.innerText;
+               document.getElementById("expenseType").innerText = catChoice;
            })
         });
     }
@@ -78,10 +86,11 @@
         const categories = await fetch(firebaseDBCategory);
         const categoryResponse = await categories.json();
         let [cKeys, cParsed] = parseData(categoryResponse);
-
+        CATEGORIES = cParsed;
         const expenses = await fetch(firebaseDBExpense);
         const expenseResponse = await expenses.json();
         let [keys, parsed] = parseData(expenseResponse);
+        EXPENSES = parsed;
         loadPage(parsed, cParsed);
     }
 
@@ -90,4 +99,27 @@
         allowExpenseChoices();
     })
 
+
+    function renderDoughnutChart() {
+        const data = {
+            labels: [...CATEGORIES],
+            datasets: [{
+                label: ``,
+                data: [],
+                backgroundColor: [],
+                hoverOffset: 4
+            }]
+        };
+
+        return {
+            type: 'doughnut',
+            data: data,
+        };
+    }
+    function createChart(data) {
+        new Chart(
+            document.getElementById('myChart'),
+            data
+        );
+    }
 })();
