@@ -2,12 +2,21 @@
     const firebaseDBCategory = 'https://react-sho-default-rtdb.firebaseio.com/category.json';
     const firebaseDBExpense = 'https://react-sho-default-rtdb.firebaseio.com/expense.json';
     let catChoice = document.getElementById("expenseType");
+    let catSelection = '';
     let EXPENSES = [];
     let CATEGORIES = [];
     $("#filter").on("click", () => {
-        document.getElementById("filter-modal").style.display = "block";
-        // add chart here and total price by date / category
+        EXPENSES = EXPENSES.filter(ex => ex.type === catSelection);
+        console.log(EXPENSES);
+        let sum = 0;
+        for(let i = 0; i < EXPENSES.length; i++) {
+            sum += +EXPENSES[i].amount;
+        }
+        document.getElementById("total").innerText = sum;
+        loadPage(EXPENSES, CATEGORIES);
+        allowExpenseChoices();
     });
+    $("#reset").on("click", getExpenseData);
 
     document.getElementById("newCat").addEventListener("click", () => {
         document.getElementById("modal").style.display = "block";
@@ -32,8 +41,8 @@
     function allowExpenseChoices() {
         Array.from(document.getElementsByClassName("expense-type")).forEach(type => {
            type.addEventListener("click", (e) => {
-               catChoice = e.target.innerText;
-               document.getElementById("expenseType").innerText = catChoice;
+               catChoice.innerText = e.target.innerText;
+               catSelection = e.target.innerText;
            })
         });
     }
@@ -42,7 +51,7 @@
         let expense = {
             day: new Date().toDateString(),
             amount: $("#amount").val(),
-            type: catChoice
+            type: catSelection
         };
         await fetch(firebaseDBExpense, {
             method: "POST",
@@ -92,34 +101,11 @@
         let [keys, parsed] = parseData(expenseResponse);
         EXPENSES = parsed;
         loadPage(parsed, cParsed);
+        allowExpenseChoices();
     }
 
     getExpenseData().then(() => {
         console.log("done");
-        allowExpenseChoices();
     })
 
-
-    function renderDoughnutChart() {
-        const data = {
-            labels: [...CATEGORIES],
-            datasets: [{
-                label: ``,
-                data: [],
-                backgroundColor: [],
-                hoverOffset: 4
-            }]
-        };
-
-        return {
-            type: 'doughnut',
-            data: data,
-        };
-    }
-    function createChart(data) {
-        new Chart(
-            document.getElementById('myChart'),
-            data
-        );
-    }
 })();
