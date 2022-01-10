@@ -5,18 +5,24 @@
     let catSelection = '';
     let EXPENSES = [];
     let CATEGORIES = [];
-    $("#filter").on("click", () => {
-        EXPENSES = EXPENSES.filter(ex => ex.type === catSelection);
-        console.log(EXPENSES);
+    function totalExpense(exp) {
         let sum = 0;
         for(let i = 0; i < EXPENSES.length; i++) {
             sum += +EXPENSES[i].amount;
         }
-        document.getElementById("total").innerText = sum;
+        return sum;
+    }
+    $("#filter").on("click", () => {
+        EXPENSES = EXPENSES.filter(ex => ex.type === catSelection);
+        console.log(EXPENSES);
+        document.getElementById("total").innerText = totalExpense(EXPENSES).toString();
         loadPage(EXPENSES, CATEGORIES);
         allowExpenseChoices();
     });
     $("#reset").on("click", getExpenseData);
+    $("#totalSpend").on("click", () => {
+        $("#total").text(totalExpense(EXPENSES));
+    });
 
     document.getElementById("newCat").addEventListener("click", () => {
         document.getElementById("modal").style.display = "block";
@@ -107,5 +113,4 @@
     getExpenseData().then(() => {
         console.log("done");
     })
-
 })();

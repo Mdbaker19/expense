@@ -23,10 +23,11 @@ button {
 }
 
 .expense-item {
-    background: #75634a;
+    background: rgba(203, 147, 70, 0.5);
     border-radius: 10px;
     text-align: center;
     box-shadow: -6px 3px 6px 0 #26666b;
+    margin: .5vmin;
 }
 #newExpense {
     width: 70%;
@@ -58,4 +59,5 @@ main {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, .6)), url('https://images.unsplash.com/photo-1620421680010-0766ff230392?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZnJhY3RhbHxlbnwwfHwwfHw%3D&w=1000&q=80') no-repeat;
     height: 60.5vh;
     background-size: cover;
+    overflow: scroll;
 }
